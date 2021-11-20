@@ -72,12 +72,12 @@ while(True):
             now_rsi = rsi(data, 14).iloc[-1]
             av_buy = float(upbit.get_avg_buy_price(coinlist[i]))
             profit_price = round(av_buy*1.02, 4)   
-            cur_price = pyupbit.get_current_price(coin)         
+            cur_price = pyupbit.get_current_price(coinlist[i])         
             print(coinlist[i], "현재시간: ", datetime.datetime.now(), "< RSI > :", now_rsi)
         
             if now_rsi <= 30 :
                 lower28[i] = True
-            elif now_rsi >= 33 and lower28[i] == True:
+            elif now_rsi >= 33 and av_buy <110000 and lower28[i] == True:
                 buy(coinlist[i])
                 lower28[i] = False
             elif now_rsi >= 60 and cur_price >= profit_price and av_buy > 0:    # higher70[i] == False:
