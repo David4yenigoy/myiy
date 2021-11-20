@@ -30,9 +30,12 @@ higher70 = []
 
 # 시장가 매수 함수 
 def buy(coin): 
-    money = upbit.get_balance("KRW") 
-    if money > 30300 : 
-        res = upbit.buy_market_order(coin, 30000) 
+    money = upbit.get_balance("KRW")
+    amount = upbit.get_balance(coin) 
+    cur_price = pyupbit.get_current_price(coin) 
+    total = amount * cur_price 
+    if money > 50500 and total < 110000 : 
+        res = upbit.buy_market_order(coin, 50000) 
     # elif money < 100000: 
     #     res = upbit.buy_market_order(coin, money*0.9) 
     # elif money < 200000 : 
@@ -77,7 +80,7 @@ while(True):
         
             if now_rsi <= 30 :
                 lower28[i] = True
-            elif now_rsi >= 33 and av_buy <110000 and lower28[i] == True:
+            elif now_rsi >= 33 and lower28[i] == True:
                 buy(coinlist[i])
                 lower28[i] = False
             elif now_rsi >= 60 and cur_price >= profit_price and av_buy > 0:    # higher70[i] == False:
