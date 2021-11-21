@@ -62,6 +62,7 @@ while(True):
             profit_price = round(av_buy*1.02, 4)   
             cur_price = pyupbit.get_current_price(coinlist[i]) 
             total = amount * cur_price
+            print(coinlist[i], datetime.datetime.now(), "< RSI > :", now_rsi)
                     
             if now_rsi <= 30 :
                 lower28[i] = True
