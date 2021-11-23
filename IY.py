@@ -64,20 +64,19 @@ while(True):
             total = amount * cur_price
             print(coinlist[i], datetime.datetime.now(), "< RSI > :", now_rsi)
                     
-            if now_rsi <= 30 :
+            if now_rsi <= 28 :
                 lower28[i] = True
-            elif now_rsi >= 33 and total < 110000 and lower28[i] == True :
+            elif now_rsi >= 30 and total < 95000 and lower28[i] == True :
                 buy(coinlist[i])
-                lower28[i] = False
                 print(coin, datetime.datetime.now(), "buy")
-            elif now_rsi >= 60 and cur_price >= profit_price and av_buy > 0:    # higher70[i] == False:
+            elif now_rsi >= 60 and cur_price >= profit_price :
                 sell(coinlist[i])
-                higher70[i] = True
+                lower28[i] = False
                 print(coin, datetime.datetime.now(), "sold")
-            elif now_rsi <= 50 :
-                higher70[i] = False
-            time.sleep(0.2)
+            elif now_rsi >= 50 :
+                lower28[i] = False
+            time.sleep(0.1)
             
         except Exception as e:
             print(e)
-            time.sleep(0.2)
+            time.sleep(0.1)
