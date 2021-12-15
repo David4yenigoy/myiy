@@ -7,6 +7,37 @@ access = ''
 secret = ''
 
 upbit = pyupbit.Upbit(access, secret)
+import pyupbit
+import pandas
+import datetime
+import time
+from pytz import timezone
+
+
+access = 'gw60JrS4pv82Ws5NrKoAVeC4rxdnsuOcWQlQTmDF'
+secret = 'N499AtpKZgSeCDfItmUz3rAiEMk8HR22w3htCpqE'
+
+upbit = pyupbit.Upbit(access, secret)
+
+# 2. 매도함수
+
+def sell(coin):
+    amount = upbit.get_balance(coin)
+    cur_price = pyupbit.get_current_price(coin)
+    total = amount * cur_price
+    print(coin, datetime.datetime.now(),"Sold")
+    if total > 5000 :
+        res = upbit.sell_market_order(coin, amount)
+    return
+
+def sell_btc(coin) :
+    amount = upbit.get_balance(coin)
+    cur_price = pyupbit.get_current_price(coin)
+    total = amount * cur_price
+    print(coin, datetime.datetime.now(), "btc Slod")
+    if total > 210000 :
+        res = upbit.sell_martket_order(coin, amount - 150000)
+    return
 
 def rsi(ohlc: pandas.DataFrame, period: int = 14):
     delta = ohlc["close"].diff()
@@ -48,15 +79,6 @@ def buy3(coin) :
         res = upbit.buy_market_order(coin, 30000)
     return
 
-# 시장가 매도 함수 
-def sell(coin): 
-    amount = upbit.get_balance(coin) 
-    cur_price = pyupbit.get_current_price(coin) 
-    total = amount * cur_price 
-    print(coin, datetime.datetime.now(),"Sold_G")
-    if total > 5000 : 
-        res = upbit.sell_market_order(coin, amount) 
-    return
 
 # 거래량 체크
 def check_volume(coin):        
@@ -74,12 +96,11 @@ def get_ma10(coin):
     ma10 = df['close'].rolling(10).mean().iloc[-1]
     return ma10
 
-
 # 이용할 코인 리스트 
 # coinlist = ["KRW-BTC", "KRW-XRP", "KRW-ETC", "KRW-ETH", "KRW-POWR", "KRW-CRO", "KRW-VET", "KRW-AQT", "KRW-AXS", "KRW-EOS", "KRW-BORA", "KRW-PLA", "KRW-WAXP", "KRW-MANA", "KRW-SAND", "KRW-QKC", "KRW-HIVE", "KRW-HUNT", "KRW-DOGE", "KRW-CHZ", "KRW-ADA", "KRW-MOC", "KRW-DOT"] # Coin ticker 추가 
 coinlist = pyupbit.get_tickers(fiat="KRW")
 
-# initiate
+# buying initiate
 
 lower28 = []
 higher70 = []
@@ -112,8 +133,8 @@ while(True):
         start_time = df2.index[-1]
         now = datetime.datetime.now() #+ datetime.timedelta(hours=9)
         data_btc = pyupbit.get_ohlcv(ticker='KRW-BTC', interval="minute30")
-        now_rsi_btc = rsi(data_btc, 14).iloc[-1]
-
+        now_rsi_btc = rsi(data_btc, 14).iloc[-1]    
+        
         if ma10 < pyupbit.get_current_price("KRW-BTC") :
             for i in range(len(coinlist)):
                 data = pyupbit.get_ohlcv(ticker=coinlist[i], interval="minute30")
