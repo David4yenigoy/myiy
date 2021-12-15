@@ -85,28 +85,21 @@ lower28 = []
 higher70 = []
 higher1 = []
 higher2 = []
-btc_buy = []
-btc_buy_down = []
-btc_rsi = []
-btc_rsi2 = []
-btc_rsi_high = []
-btc_down = []
-btc_down2 = []
-btc_down3 = []
+btc_buy = False
+btc_buy_down = False
+btc_rsi = False
+btc_rsi2 = False
+btc_rsi_high = False
+btc_down = False
+btc_down2 = False
+btc_down3 = False
 
 for i in range(len(coinlist)):
     lower28.append(False)
     higher70.append(False)
     higher1.append(True)
     higher2.append(True)
-    btc_buy.append(False)
-    btc_buy_down.append(False)
-    btc_rsi.append(False)
-    btc_rsi2.append(False)
-    btc_rsi_high.append(False)
-    btc_down.append(False)
-    btc_down2.append(False)
-    btc_down3.append(False)
+    
 
 while(True):
     try :
